@@ -1,0 +1,785 @@
+# Natalmagic1
+Opcional
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NatalMagic - Edição de Fotos e Vídeos Natalinos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variáveis de cores e estilos */
+        :root {
+            --vermelho-natal: #C41E3A;
+            --verde-natal: #0A5C36;
+            --dourado: #D4AF37;
+            --branco: #FFFFFF;
+            --preto: #1A1A1A;
+            --cinza-claro: #F5F5F5;
+            --sombra: rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--cinza-claro);
+            color: var(--preto);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3 {
+            color: var(--verde-natal);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            position: relative;
+            margin-bottom: 50px;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--verde-natal), var(--dourado));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--vermelho-natal);
+            color: var(--branco);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--verde-natal);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--sombra);
+        }
+        
+        /* Header e Navegação */
+        header {
+            background-color: var(--branco);
+            box-shadow: 0 2px 10px var(--sombra);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--verde-natal);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--vermelho-natal);
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--preto);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--vermelho-natal);
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(10, 92, 54, 0.9), rgba(10, 92, 54, 0.8)), url('https://images.unsplash.com/photo-1573995769683-1d2df621d7b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--branco);
+            text-align: center;
+            padding: 180px 0 100px;
+        }
+        
+        .hero h1 {
+            color: var(--branco);
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-btns {
+            margin-top: 30px;
+        }
+        
+        .hero-btns .btn {
+            margin: 0 10px;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--branco);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--branco);
+            color: var(--verde-natal);
+        }
+        
+        /* Features Section */
+        .features {
+            background-color: var(--branco);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--cinza-claro);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px var(--sombra);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--vermelho-natal);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* Efeitos Section */
+        .effects-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .effect-card {
+            background-color: var(--branco);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--sombra);
+            transition: transform 0.3s;
+        }
+        
+        .effect-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .effect-img {
+            height: 200px;
+            background-color: var(--cinza-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--verde-natal);
+        }
+        
+        .effect-content {
+            padding: 20px;
+        }
+        
+        .effect-content h3 {
+            margin-bottom: 10px;
+        }
+        
+        /* Planos Section */
+        .plans {
+            background-color: var(--branco);
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .plan-card {
+            background-color: var(--cinza-claro);
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--sombra);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .plan-card.popular {
+            border: 2px solid var(--dourado);
+            transform: scale(1.05);
+        }
+        
+        .plan-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dourado);
+            color: var(--branco);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--verde-natal);
+            margin: 20px 0;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--preto);
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .plan-features li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .plan-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--verde-natal);
+            font-weight: bold;
+        }
+        
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--branco);
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--preto);
+        }
+        
+        .login-form {
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .form-options a {
+            color: var(--vermelho-natal);
+            text-decoration: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--verde-natal);
+            color: var(--branco);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--branco);
+            margin-bottom: 25px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--cinza-claro);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--dourado);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                background-color: var(--branco);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px var(--sombra);
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .plan-card.popular {
+                transform: scale(1);
+            }
+            
+            .plan-card.popular:hover {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header e Navegação -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-tree"></i>
+                NatalMagic
+            </a>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#effects">Efeitos</a></li>
+                <li><a href="#plans">Planos</a></li>
+                <li><a href="#" id="loginBtn">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Dê um Toque Natalino às Suas Fotos e Vídeos</h1>
+            <p>Crie wallpapers incríveis para o Natal com efeitos especiais, filtros festivos e edição fácil. Transforme suas memórias em magia natalina em poucos cliques!</p>
+            <div class="hero-btns">
+                <a href="#effects" class="btn">Experimente Grátis</a>
+                <a href="#plans" class="btn btn-secondary">Ver Planos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Fácil de Usar, Resultados Incríveis</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-magic"></i>
+                    <h3>Edição em Um Clique</h3>
+                    <p>Efeitos natalinos automáticos com apenas um clique. Transforme suas fotos instantaneamente.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Efeitos para Vídeos</h3>
+                    <p>Adicione neve caindo, luzes piscando e músicas natalinas aos seus vídeos de forma simples.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Wallpapers Prontos</h3>
+                    <p>Baixe wallpapers natalinos exclusivos ou crie os seus próprios a partir das suas fotos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Effects Section -->
+    <section class="effects" id="effects">
+        <div class="container">
+            <h2>Efeitos Natalinos Especiais</h2>
+            <div class="effects-preview">
+                <div class="effect-card">
+                    <div class="effect-img">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <div class="effect-content">
+                        <h3>Efeito Neve</h3>
+                        <p>Adicione neve realista caindo sobre suas fotos e vídeos. Personalize intensidade e direção.</p>
+                    </div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-img">
+                        <i class="fas fa-candy-cane"></i>
+                    </div>
+                    <div class="effect-content">
+                        <h3>Filtros Festivos</h3>
+                        <p>Filtros vermelho, verde e dourado para dar aquele clima natalino às suas imagens.</p>
+                    </div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-img">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="effect-content">
+                        <h3>Adesivos Natalinos</h3>
+                        <p>Renas, Papai Noel, presentes e muito mais para decorar suas criações.</p>
+                    </div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-img">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="effect-content">
+                        <h3>Áudio Festivo</h3>
+                        <p>Adicione músicas e sons natalinos aos seus vídeos. Grande biblioteca de áudios.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="plans" id="plans">
+        <div class="container">
+            <h2>Escolha Seu Plano</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>Grátis</h3>
+                    <div class="plan-price">R$0<span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>5 edições por mês</li>
+                        <li>Efeitos básicos natalinos</li>
+                        <li>Watermark nas criações</li>
+                        <li>Resolução padrão</li>
+                        <li>Suporte por email</li>
+                    </ul>
+                    <a href="#" class="btn">Começar Agora</a>
+                </div>
+                
+                <div class="plan-card popular">
+                    <div class="popular-badge">Mais Popular</div>
+                    <h3>Pro</h3>
+                    <div class="plan-price">R$19,90<span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Edições ilimitadas</li>
+                        <li>Todos os efeitos natalinos</li>
+                        <li>Sem watermark</li>
+                        <li>Alta resolução (4K)</li>
+                        <li>Suporte prioritário</li>
+                        <li>Exportação rápida</li>
+                    </ul>
+                    <a href="#" class="btn">Assinar Agora</a>
+                </div>
+                
+                <div class="plan-card">
+                    <h3>Família</h3>
+                    <div class="plan-price">R$34,90<span>/mês</span></div>
+                    <ul class="plan-features">
+                        <li>Para até 5 usuários</li>
+                        <li>Todos os recursos Pro</li>
+                        <li>Biblioteca compartilhada</li>
+                        <li>Controle parental</li>
+                        <li>Backup em nuvem</li>
+                        <li>Descontos especiais</li>
+                    </ul>
+                    <a href="#" class="btn">Para Famílias</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Faça Login</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="Sua senha" required>
+                </div>
+                <div class="form-options">
+                    <label>
+                        <input type="checkbox"> Lembrar-me
+                    </label>
+                    <a href="#">Esqueci minha senha</a>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Entrar</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;">
+                Não tem uma conta? <a href="#" style="color: var(--vermelho-natal); font-weight: bold;">Cadastre-se grátis</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>NatalMagic</h3>
+                    <p>Transforme suas fotos e vídeos em magia natalina. Crie wallpapers incríveis para celebrar a melhor época do ano.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#effects">Efeitos</a></li>
+                        <li><a href="#plans">Planos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contato@natalmagic.com</li>
+                        <li><i class="fas fa-phone"></i> (11) 99999-9999</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, Brasil</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 NatalMagic. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu responsivo
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Modal de login
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+        
+        closeModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+        
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+        
+        // Formulário de login
+        document.querySelector('.login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login realizado com sucesso! Em breve você será redirecionado.');
+            loginModal.style.display = 'none';
+        });
+        
+        // Scroll suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
